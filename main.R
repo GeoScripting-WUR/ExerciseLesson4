@@ -1,5 +1,5 @@
 # Loic Dutrieux
-# 
+# January 2015
 
 library(raster)
 
