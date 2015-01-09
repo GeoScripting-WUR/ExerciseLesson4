@@ -24,11 +24,15 @@ plot(extent(ndvi8), add = TRUE)
 plot(extent(ndvi5), add = TRUE)
 
 # Visualize difference
-plot(diff, zlim = c(-1,1))
+plot(diff, zlim = c(-1,1), col=colorRampPalette(c("red", "white", "blue"))(255))
 
 # MOre visualization
 opar <- par(mfrow = c(2,2))
 plot(ndvi5Sub, zlim = c(-0.1, 1), main = '1990')
 plot(ndvi8Sub, zlim = c(-0.1, 1), main = '2014')
-plot(diff, zlim = c(-1,1), main = 'NDVI change 1990-2014')
+plot(diff, zlim = c(-1,1), main = 'NDVI change 1990-2014', col=colorRampPalette(c("red", "white", "blue"))(255))
 par(opar)
+
+# FOr googleEarth
+diffLatLong <- projectRaster(diff, crs = CRS('+proj=longlat'))
+KML(diffLatLong, col = colorRampPalette(c("red", "white", "blue"))(255), filename = 'output/diff.kml', maxpixels = 400000, overwrite = TRUE)
